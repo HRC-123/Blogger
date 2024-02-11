@@ -10,7 +10,7 @@ const app = express();
 
 const __dirname = path.resolve();
 app.use(cors({
-    origin:["https://blogger-website-jet.vercel.app"],
+    origin:["https://blogger-website-eight.vercel.app"],
   methods:["POST","GET"],
   credentials:true
 }));
@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use('/',Router);
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://blogger-website-jet.vercel.app');
+  res.setHeader('Access-Control-Allow-Origin', 'https://blogger-website-eight.vercel.app');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
