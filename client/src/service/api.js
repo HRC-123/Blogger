@@ -6,7 +6,7 @@ import {
 } from "../constants/config.js";
 
 import { getAccessToken,getType } from "../utils/common-utils.js";
-const API_URL = "https://blogger-kappa.vercel.app";
+const API_URL = "https://blogger-seven-blond.vercel.app";
 
 axios.defaults.withCredentials = true;
 
