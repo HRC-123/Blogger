@@ -10,7 +10,7 @@ const app = express();
 
 const __dirname = path.resolve();
 app.use(cors({
-    origin:["https://blogger-website-jet.vercel.app"],
+    origin:["https://blogger-website-eight.vercel.app"],
   methods:["POST","GET"],
   credentials:true
 }));
