@@ -6,7 +6,7 @@ import {
 } from "../constants/config.js";
 
 import { getAccessToken,getType } from "../utils/common-utils.js";
-const API_URL = "https://blogwithothers.onrender.com";
+const API_URL = "https://serviceblogger.onrender.com";
 
 axios.defaults.withCredentials = true;
 
