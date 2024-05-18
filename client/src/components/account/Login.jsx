@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
-
-import { Box, TextField, Button, styled, Typography } from "@mui/material";
+// import { Link } from "react-router-dom";
+import { Box, TextField, Button, styled, Typography,Link } from "@mui/material";
 
 import { API } from "../../service/api";
 import { DataContext } from "../../context/DataProvider";
@@ -72,7 +72,18 @@ const loginInitialValues = {
   password: "",
 };
 
-const Login = ({isUserAuthenticated}) => {
+const ForgotPassword = styled(Typography)`
+  font-size: 12px;
+  color: blue;
+  text-decoration: underline;
+  cursor:pointer;
+`;
+
+const ForgotPasswordLink = styled(Link)`
+  margin-top:10px;
+`
+
+const Login = ({ isUserAuthenticated }) => {
   const imageURL =
     "https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png";
 
@@ -141,7 +152,7 @@ const Login = ({isUserAuthenticated}) => {
             username: response.data.username,
             name: response.data.name,
           });
-          
+
           isUserAuthenticated(true);
           navigate("/home");
         } else {
@@ -156,6 +167,14 @@ const Login = ({isUserAuthenticated}) => {
           "Something went wrong while logging in! please try again later"
         );
       });
+  };
+
+  const forgotPassword = async () => {
+    const response = await API.forgotPassword();
+
+    console.log(response);
+
+    console.log("In forgot Password");
   };
 
   return (
@@ -184,6 +203,11 @@ const Login = ({isUserAuthenticated}) => {
             <LoginButton onClick={() => loginUser()} variant="contained">
               Login
             </LoginButton>
+
+            <ForgotPasswordLink onClick={() => forgotPassword()}>
+              <ForgotPassword>Forgot Password?</ForgotPassword>
+            </ForgotPasswordLink>
+
             <Text style={{ textAlign: "center" }}>OR</Text>
             <SignupButton onClick={() => toggleSignup()}>
               Create an account

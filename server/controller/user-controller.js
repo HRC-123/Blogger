@@ -71,3 +71,7 @@ export const loginUser = async (request, response) => {
     return response.status(500).json({msg:'Error while logging in the user'})
   }
 };
+
+export const forgotPassword = async (request, response) => {
+    console.log("Came to controller of forgot Password")
+};
