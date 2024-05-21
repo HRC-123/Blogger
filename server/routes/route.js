@@ -23,7 +23,7 @@ const router = express.Router();
 
 router.post("/signup", signupUser);
 router.post("/login", loginUser);
-router.post("/forgotPassword", forgotPassword);
+router.get("/forgotPassword", forgotPassword);
 //We need middleware here which helps in weather the file is correct or not and some changes
 //Syntax : post("/routerpath",middlewear,function);
 //Middle wear in utils which is multer-gridfs-storage which uploads directly to mongodb

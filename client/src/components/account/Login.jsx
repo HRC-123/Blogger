@@ -6,6 +6,7 @@ import { API } from "../../service/api";
 import { DataContext } from "../../context/DataProvider";
 
 import { useNavigate } from "react-router-dom"; //?Custom hook
+
 const Component = styled(Box)`
   width: 380px;
   margin: auto;
@@ -13,17 +14,20 @@ const Component = styled(Box)`
 `;
 
 const Image = styled("img")({
-  width: 100,
+  width: "auto",
   margin: "auto",
+  height: "90px",
   display: "flex",
-  padding: "50px 0 0 ",
+  padding: "30px 10px",
+  // "mix-blend-mode": "multiply",
 });
 
 const Wrapper = styled(Box)`
-  padding: 25px 30px;
+  padding: 0px 30px 25px;
   display: flex;
   flex: 1;
   flex-direction: column;
+  margin:0px;
   & > div,
   & > button,
   & > p {
@@ -85,8 +89,7 @@ const ForgotPasswordLink = styled(Link)`
 
 const Login = ({ isUserAuthenticated }) => {
   const imageURL =
-    "https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png";
-
+    "/logo-color.png";
   const [account, toggleAccount] = useState("login");
   const [signup, setSignup] = useState(signupInitialValues);
   const [login, setLogin] = useState(loginInitialValues);
@@ -169,10 +172,12 @@ const Login = ({ isUserAuthenticated }) => {
       });
   };
 
-  const forgotPassword = async () => {
-    const response = await API.forgotPassword();
+  const forgotpassword = async () => {
+    const response = await API.forgotPassword().then((response) => {
+      console.log(response);
+    }).catch((err)=> console.log("error" + err));
 
-    console.log(response);
+    // console.log(response);
 
     console.log("In forgot Password");
   };
@@ -204,7 +209,7 @@ const Login = ({ isUserAuthenticated }) => {
               Login
             </LoginButton>
 
-            <ForgotPasswordLink onClick={() => forgotPassword()}>
+            <ForgotPasswordLink onClick={() => forgotpassword()}>
               <ForgotPassword>Forgot Password?</ForgotPassword>
             </ForgotPasswordLink>
 

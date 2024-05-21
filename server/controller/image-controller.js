@@ -38,8 +38,8 @@ export const getImage = async (request, response) => {
   try {
     const file = await gfs.files.findOne({ filename: request.params.filename });
     const readStream = gridfsBucket.openDownloadStream(file._id);
-    readStream.pipe(response);//To convert into readable format
+    readStream.pipe(response); //To convert into readable format
   } catch (error) {
-    return response.status(500).json({msg:error.msg});
+    return response.status(500).json({ msg: error.msg });
   }
 };

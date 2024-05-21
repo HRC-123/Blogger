@@ -32,7 +32,7 @@ export const API_NOTIFICATION_MESSAGES = {
 export const SERVICE_URLS = {
   userSignup: { url: "/signup", method: "POST" },
   userLogin: { url: "/login", method: "POST" },
-  forgotPassword : {url:"/forgotpassword",method:"GET"},
+  forgotPassword : {url:"/forgotPassword",method:"GET"},
   uploadFile: { url: "/file/upload", method: "POST" },
   createPost: { url: "/create", method: "POST" }, //!
   getAllPosts: { url: "/posts", method: "GET", params: true },

@@ -5,9 +5,8 @@ import {
   SERVICE_URLS,
 } from "../constants/config.js";
 
-import { getAccessToken,getType } from "../utils/common-utils.js";
+import { getAccessToken, getType } from "../utils/common-utils.js";
 const API_URL = "https://bloggerserver.onrender.com";
-
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
@@ -15,20 +14,19 @@ const axiosInstance = axios.create({
   headers: {
     Accept: "application/json, multipart/form-data",
     "Content-Type": "application/json",
-    authorization:getAccessToken(),
+    authorization: getAccessToken(),
   },
 });
 
 axiosInstance.interceptors.request.use(
   //Successful case
   function (config) {
-    if(config.TYPE.params){
+    if (config.TYPE.params) {
       config.params = config.TYPE.params;
+    } else if (config.TYPE.query) {
+      config.url = config.url + "/" + config.TYPE.query;
     }
-    else if(config.TYPE.query){
-      config.url = config.url + '/' + config.TYPE.query;
-    }
-    
+
     return config;
   },
   function (error) {
@@ -103,10 +101,10 @@ for (const [key, value] of Object.entries(SERVICE_URLS)) {
       url: value.url,
       data: value.method === "DELETE" ? {} : body, //!Check why {} accepted but not null and " ";
       responseType: value.responseType,
-      headers:{
-        authorization:getAccessToken()
+      headers: {
+        authorization: getAccessToken(),
       },
-      TYPE: getType(value,body),
+      TYPE: getType(value, body),
       onUploadProgress: function (progressEvent) {
         if (showUploadProgress) {
           let percentageCompleted = Math.round(
