@@ -73,6 +73,7 @@ export const loginUser = async (request, response) => {
 };
 
 export const forgotPassword = async (request, response) => {
-  
+
   console.log("Came to controller of forgot Password");
+  return response.status(200).json({ msg: 'Working Fine' });
 };

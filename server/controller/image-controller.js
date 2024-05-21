@@ -1,7 +1,7 @@
 import grid from "gridfs-stream"; //Used for streaming files from mongodb
 import mongoose from "mongoose";
 
-const url = "https://bloggerserver.onrender.com";
+const url = "http://localhost:8000/";
 
 let gfs, gridfsBucket;
 const conn = mongoose.connection;

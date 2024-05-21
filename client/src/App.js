@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 //Components
 import Login from "./components/account/Login";
+import ForgotPassword from "./components/account/ForgotPassword";
 import Home from "./components/home/Home";
 import Header from "./components/header/Header";
 import CreatePost from "./components/create/CreatePost";
@@ -47,6 +48,8 @@ function App() {
               path="/login"
               element={<Login isUserAuthenticated={isUserAuthenticated} />}
             />
+
+            <Route path="/forgotPassword" element={<ForgotPassword />} />
 
             <Route
               path="/home"
@@ -89,9 +92,6 @@ function App() {
             >
               <Route path="/contact" element={<Contact />} />
             </Route>
-
-
-
           </Routes>
         </div>
       </BrowserRouter>

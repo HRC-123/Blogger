@@ -173,11 +173,14 @@ const Login = ({ isUserAuthenticated }) => {
   };
 
   const forgotpassword = async () => {
-    const response = await API.forgotPassword().then((response) => {
-      console.log(response);
-    }).catch((err)=> console.log("error" + err));
+    // const response = await API.forgotPassword().then((response) => {
+      // console.log(response);
+     
+    // }).catch((err)=> console.log("error" + err));
 
     // console.log(response);
+
+    navigate("/forgotPassword");
 
     console.log("In forgot Password");
   };
