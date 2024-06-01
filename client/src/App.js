@@ -13,6 +13,7 @@ import {
 //Components
 import Login from "./components/account/Login";
 import ForgotPassword from "./components/account/ForgotPassword";
+import ResetPassword from "./components/account/ResetPassword";
 import Home from "./components/home/Home";
 import Header from "./components/header/Header";
 import CreatePost from "./components/create/CreatePost";
@@ -38,6 +39,7 @@ const PrivateRoute = ({ isAuthenticated, ...props }) => {
 
 function App() {
   const [isAuthenticated, isUserAuthenticated] = useState(false);
+  const [isVerified, isUserVerified] = useState(false);
   return (
     <DataProvider>
       <BrowserRouter>
@@ -49,7 +51,15 @@ function App() {
               element={<Login isUserAuthenticated={isUserAuthenticated} />}
             />
 
-            <Route path="/forgotPassword" element={<ForgotPassword />} />
+            <Route
+              path="/forgotPassword"
+              element={<ForgotPassword isUserVerified={isUserVerified} />}
+            />
+
+            <Route
+              path="/resetPassword"
+              element={<ResetPassword isVerified={isVerified} />}
+            />
 
             <Route
               path="/home"
