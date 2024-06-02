@@ -41,7 +41,7 @@ const Error = styled(Typography)`
 `;
 
 const initialValues = {
-  email: 'k@gmail.com',
+  email: '',
   password:'pass'
 }
 
@@ -67,8 +67,8 @@ const ResetPassword = ({ isVerified, email }) => {
     // Get the email from the state
     useEffect(() => {
       if (location.state && location.state.email) {
-        setDetails((prevState) => ({
-          ...prevState,
+        setDetails((details) => ({
+          ...details,
           email: location.state.email,
         }));
       }
