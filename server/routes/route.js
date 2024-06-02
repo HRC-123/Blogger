@@ -1,5 +1,5 @@
 import express from "express";
-import { signupUser, loginUser, forgotPassword } from "../controller/user-controller.js";
+import { signupUser, loginUser, forgotPassword, resetPassword } from "../controller/user-controller.js";
 import { uploadImage, getImage } from "../controller/image-controller.js";
 
 import {
@@ -29,6 +29,8 @@ router.get("/forgotPassword", forgotPassword);
 //Middle wear in utils which is multer-gridfs-storage which uploads directly to mongodb
 router.post("/file/upload", upload.single("file"), uploadImage);
 router.get("/file/:filename", getImage);
+
+router.put("/resetPassword", resetPassword);
 
 router.post("/create", authenticateToken, createPost);
 

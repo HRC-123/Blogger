@@ -4,6 +4,8 @@ import { Box, TextField, styled, Button, Typography } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import SaveIcon from "@mui/icons-material/Save";
+import { API } from "../../service/api";
+
 
 const Outline = styled(Box)`
   width: 360px;
@@ -38,12 +40,19 @@ const Error = styled(Typography)`
 
 `;
 
+const initialValues = {
+  email: 'k@gmail.com',
+  password:'pass'
+}
+
 
 const ResetPassword = ({ isVerified }) => {
   const [visibility, setVisibility] = useState(false);
   const [passwordText, setPasswordText] = useState(false);
   const [confirmvisibility, setConfirmVisibility] = useState(false);
   const [confirmPasswordText, setConfirmPasswordText] = useState(false);
+
+  const [details, setDetails] = useState(initialValues);
   
 
   const [password, setPassword] = useState("");
@@ -67,6 +76,7 @@ const ResetPassword = ({ isVerified }) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
     console.log(password);
+    
   };
 
   const handleConfirmPassword = (e) => {
@@ -81,17 +91,41 @@ const ResetPassword = ({ isVerified }) => {
     }
   }, [isVerified, navigate]);
 
-  const savePassword = () => {
+  useEffect(() => {
+    console.log(details);
+  }, [details]);
+
+  const savePassword = async() => {
     console.log(password);
       console.log(confirmPassword);
       
 
       if (password === confirmPassword) {
           setWrong(false);
-          console.log(true);
-
+        console.log(true);
+        
+      //  setDetails({...details,'password' : password})
+        
           //Database save
           //Backend and sending email and getting email contents is remaining
+        
+        // console.log(details);
+        
+         const updatedDetails = { ...details, password: password }; //For setting Details it is taking time so used this
+         setDetails(updatedDetails);
+
+         try {
+           const updating = await API.resetPassword(updatedDetails);
+           console.log(updating);
+           navigate("/login");
+         } catch (error) {
+           console.log("error in updating password: " + error);
+         }
+          
+
+        // console.log(updating);
+
+
           
       }
       else {
@@ -118,6 +152,7 @@ const ResetPassword = ({ isVerified }) => {
             type={passwordText ? "text" : "password"}
             label="Password"
             variant="outlined"
+            name="password"
             fullWidth
             onChange={(e) => handleNormalPassword(e)}
             required

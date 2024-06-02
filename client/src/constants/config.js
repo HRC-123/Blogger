@@ -1,5 +1,6 @@
 //API_NOTIFICATION_MESSAGES
 
+
 export const API_NOTIFICATION_MESSAGES = {
   loading: {
     //If loader exists
@@ -32,8 +33,9 @@ export const API_NOTIFICATION_MESSAGES = {
 export const SERVICE_URLS = {
   userSignup: { url: "/signup", method: "POST" },
   userLogin: { url: "/login", method: "POST" },
-  forgotPassword : {url:"/forgotPassword",method:"GET"},
+  forgotPassword: { url: "/forgotPassword", method: "GET" },
   uploadFile: { url: "/file/upload", method: "POST" },
+  resetPassword: { url: "/resetPassword", method: "PUT" },
   createPost: { url: "/create", method: "POST" }, //!
   getAllPosts: { url: "/posts", method: "GET", params: true },
   getPostById: { url: "/post", method: "GET", query: true }, //!Why query is used?

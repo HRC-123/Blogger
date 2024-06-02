@@ -1,6 +1,13 @@
 import { useState, useContext } from "react";
 // import { Link } from "react-router-dom";
-import { Box, TextField, Button, styled, Typography,Link } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Button,
+  styled,
+  Typography,
+  Link,
+} from "@mui/material";
 
 import { API } from "../../service/api";
 import { DataContext } from "../../context/DataProvider";
@@ -27,7 +34,7 @@ const Wrapper = styled(Box)`
   display: flex;
   flex: 1;
   flex-direction: column;
-  margin:0px;
+  margin: 0px;
   & > div,
   & > button,
   & > p {
@@ -66,7 +73,7 @@ const Text = styled(Typography)`
 `;
 
 const signupInitialValues = {
-  name: "",
+  email: "",
   username: "",
   password: "",
 };
@@ -80,16 +87,15 @@ const ForgotPassword = styled(Typography)`
   font-size: 12px;
   color: blue;
   text-decoration: underline;
-  cursor:pointer;
+  cursor: pointer;
 `;
 
 const ForgotPasswordLink = styled(Link)`
-  margin-top:10px;
-`
+  margin-top: 10px;
+`;
 
 const Login = ({ isUserAuthenticated }) => {
-  const imageURL =
-    "/logo-color.png";
+  const imageURL = "/logo-color.png";
   const [account, toggleAccount] = useState("login");
   const [signup, setSignup] = useState(signupInitialValues);
   const [login, setLogin] = useState(loginInitialValues);
@@ -105,12 +111,13 @@ const Login = ({ isUserAuthenticated }) => {
   };
 
   function onInputChange(e) {
-    //  console.log(e.target.name,e.target.value);
+     console.log(e.target.name,e.target.value);
     setSignup({ ...signup, [e.target.name]: e.target.value });
     //  console.log(signup);
   }
 
   const signupUser = async () => {
+    console.log(signup);
     let response = await API.userSignup(signup)
       .then((response) => {
         if (response.isSuccess) {
@@ -153,7 +160,7 @@ const Login = ({ isUserAuthenticated }) => {
 
           setAccount({
             username: response.data.username,
-            name: response.data.name,
+            email: response.data.email,
           });
 
           isUserAuthenticated(true);
@@ -165,7 +172,7 @@ const Login = ({ isUserAuthenticated }) => {
         }
       })
       .catch((e) => {
-        // console.log("------------------" + error+ "------------");
+        console.log(e);
         showError(
           "Something went wrong while logging in! please try again later"
         );
@@ -174,8 +181,8 @@ const Login = ({ isUserAuthenticated }) => {
 
   const forgotpassword = async () => {
     // const response = await API.forgotPassword().then((response) => {
-      // console.log(response);
-     
+    // console.log(response);
+
     // }).catch((err)=> console.log("error" + err));
 
     // console.log(response);
@@ -228,8 +235,8 @@ const Login = ({ isUserAuthenticated }) => {
               onChange={(e) => {
                 onInputChange(e);
               }}
-              name="name"
-              label="Name"
+              name="email"
+              label="Email"
             />
             <TextField
               variant="standard"
