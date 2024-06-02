@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";
-// import { Link } from "react-router-dom";
 import {
   Box,
   TextField,
@@ -8,11 +7,9 @@ import {
   Typography,
   Link,
 } from "@mui/material";
-
 import { API } from "../../service/api";
 import { DataContext } from "../../context/DataProvider";
-
-import { useNavigate } from "react-router-dom"; //?Custom hook
+import { useNavigate } from "react-router-dom";
 
 const Component = styled(Box)`
   width: 380px;
@@ -26,7 +23,6 @@ const Image = styled("img")({
   height: "90px",
   display: "flex",
   padding: "30px 10px",
-  // "mix-blend-mode": "multiply",
 });
 
 const Wrapper = styled(Box)`
@@ -111,26 +107,21 @@ const Login = ({ isUserAuthenticated }) => {
   };
 
   function onInputChange(e) {
-     console.log(e.target.name,e.target.value);
     setSignup({ ...signup, [e.target.name]: e.target.value });
-    //  console.log(signup);
   }
 
   const signupUser = async () => {
-    console.log(signup);
     let response = await API.userSignup(signup)
       .then((response) => {
         if (response.isSuccess) {
           setSignup(signupInitialValues);
-          // console.log("-"+error);
           showError("");
           toggleAccount("login");
         } else {
           showError("Something went wrong! please try again later");
         }
       })
-      .catch((e) => {
-        // console.log("------------------" + error+ "------------");
+      .catch(() => {
         showError("Something went wrong! please try again later");
       });
   };
@@ -143,8 +134,6 @@ const Login = ({ isUserAuthenticated }) => {
     let response = await API.userLogin(login)
       .then((response) => {
         if (response.isSuccess) {
-          //  setLogin(loginInitialValues);
-          // console.log("-"+error);
           showError("");
 
           sessionStorage.setItem(
@@ -155,8 +144,6 @@ const Login = ({ isUserAuthenticated }) => {
             "refreshToken",
             `Bearer ${response.data.refreshToken}`
           );
-
-          //?need to set username and name as global variables through context api
 
           setAccount({
             username: response.data.username,
@@ -180,16 +167,7 @@ const Login = ({ isUserAuthenticated }) => {
   };
 
   const forgotpassword = async () => {
-    // const response = await API.forgotPassword().then((response) => {
-    // console.log(response);
-
-    // }).catch((err)=> console.log("error" + err));
-
-    // console.log(response);
-
     navigate("/forgotPassword");
-
-    console.log("In forgot Password");
   };
 
   return (
@@ -201,30 +179,30 @@ const Login = ({ isUserAuthenticated }) => {
             <TextField
               variant="standard"
               value={login.username}
-              onChange={(e) => onValueChange(e)}
+              onChange={onValueChange}
               name="username"
               label="User Name"
             />
             <TextField
               variant="standard"
               value={login.password}
-              onChange={(e) => onValueChange(e)}
+              onChange={onValueChange}
               name="password"
               label="Password"
             />
 
             {error && <Error>{error}</Error>}
 
-            <LoginButton onClick={() => loginUser()} variant="contained">
+            <LoginButton onClick={loginUser} variant="contained">
               Login
             </LoginButton>
 
-            <ForgotPasswordLink onClick={() => forgotpassword()}>
+            <ForgotPasswordLink onClick={forgotpassword}>
               <ForgotPassword>Forgot Password?</ForgotPassword>
             </ForgotPasswordLink>
 
             <Text style={{ textAlign: "center" }}>OR</Text>
-            <SignupButton onClick={() => toggleSignup()}>
+            <SignupButton onClick={toggleSignup}>
               Create an account
             </SignupButton>
           </Wrapper>
@@ -232,34 +210,31 @@ const Login = ({ isUserAuthenticated }) => {
           <Wrapper>
             <TextField
               variant="standard"
-              onChange={(e) => {
-                onInputChange(e);
-              }}
+              onChange={onInputChange}
               name="email"
               label="Email"
+              value={signup.email}
             />
             <TextField
               variant="standard"
-              onChange={(e) => {
-                onInputChange(e);
-              }}
+              onChange={onInputChange}
               name="username"
               label="User Name"
+              value={signup.username}
             />
             <TextField
               variant="standard"
-              onChange={(e) => {
-                onInputChange(e);
-              }}
+              onChange={onInputChange}
               name="password"
               label="Password"
+              value={signup.password}
             />
 
             {error && <Error>{error}</Error>}
 
-            <SignupButton onClick={() => signupUser()}>Sign Up</SignupButton>
+            <SignupButton onClick={signupUser}>Sign Up</SignupButton>
             <Text style={{ textAlign: "center" }}>OR</Text>
-            <LoginButton variant="contained" onClick={() => toggleSignup()}>
+            <LoginButton variant="contained" onClick={toggleSignup}>
               Already have an account
             </LoginButton>
           </Wrapper>

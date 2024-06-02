@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Box, TextField, styled, Button, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
+import { API } from "../../service/api";
 
 const Outline = styled(Box)`
   width: 380px;
@@ -71,6 +72,11 @@ const OTPButton = styled(Button)`
   width: 100%;
 `;
 
+var initialValues = {
+  email: '',
+  otp:[]
+}
+
 const SuccessText = styled("span")(({ success }) => ({
   color: success ? "green" : "red",
   fontWeight: "bolder",
@@ -102,6 +108,8 @@ const ForgotPassword = ({ isUserVerified }) => {
   const [verifyText, setVerifyText] = useState("");
   const [attempted, setAttempted] = useState(false);
 
+  const [details, setDetails] = useState(initialValues);
+
   const inputRefs = useRef([]);
 
   const navigate = useNavigate();
@@ -118,7 +126,7 @@ const ForgotPassword = ({ isUserVerified }) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!validateEmail(email)) {
       setError(true);
       setHelperText("Please enter a valid email");
@@ -127,15 +135,35 @@ const ForgotPassword = ({ isUserVerified }) => {
       setError(false);
       setHelperText("Success");
       setSuccess(true);
-      setTimeout(() => {
-        digit1 = randomNumberInRange(0, 9);
-        digit2 = randomNumberInRange(0, 9);
-        digit3 = randomNumberInRange(0, 9);
-        digit4 = randomNumberInRange(0, 9);
-        console.log(digit1, digit2, digit3, digit4);
-      }, 500);
+
+      // Generate OTP digits
+      const digit1 = randomNumberInRange(0, 9);
+      const digit2 = randomNumberInRange(0, 9);
+      const digit3 = randomNumberInRange(0, 9);
+      const digit4 = randomNumberInRange(0, 9);
+
+      // Log OTP digits for debugging
+      console.log(digit1, digit2, digit3, digit4);
+
+      // Update details with email and OTP
+      const updatedDetails = {
+        ...details,
+        email: email,
+        otp: { 0: digit1, 1: digit2, 2: digit3, 3: digit4 },
+      };
+
+      // Set the updated details to state
+      setDetails(updatedDetails);
+
+      // Log updated details for debugging
+      console.log(updatedDetails);
+
+      // Optionally send email
+      // const Email = await API.emailController(updatedDetails);
+      // console.log(email);
     }
   };
+
 
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -193,7 +221,7 @@ const ForgotPassword = ({ isUserVerified }) => {
 
       console.log("Going on......");
 
-      navigate("/resetPassword");
+      navigate("/resetPassword", { state: { email: email }});
     } else {
       console.log("Wrong");
       setVerified(false);

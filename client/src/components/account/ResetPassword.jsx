@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import { Box, TextField, styled, Button, Typography } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -46,7 +46,7 @@ const initialValues = {
 }
 
 
-const ResetPassword = ({ isVerified }) => {
+const ResetPassword = ({ isVerified, email }) => {
   const [visibility, setVisibility] = useState(false);
   const [passwordText, setPasswordText] = useState(false);
   const [confirmvisibility, setConfirmVisibility] = useState(false);
@@ -62,6 +62,22 @@ const ResetPassword = ({ isVerified }) => {
 
   const navigate = useNavigate();
 
+    const location = useLocation(); // Use useLocation to get the state
+
+    // Get the email from the state
+    useEffect(() => {
+      if (location.state && location.state.email) {
+        setDetails((prevState) => ({
+          ...prevState,
+          email: location.state.email,
+        }));
+      }
+
+       console.log(details);
+    }, [location.state]);
+  
+ 
+   console.log(details);
   const handleVisibility = () => {
     setVisibility(!visibility);
     setPasswordText(!passwordText);
