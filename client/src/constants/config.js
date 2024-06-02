@@ -33,7 +33,7 @@ export const API_NOTIFICATION_MESSAGES = {
 export const SERVICE_URLS = {
   userSignup: { url: "/signup", method: "POST" },
   userLogin: { url: "/login", method: "POST" },
-  forgotPassword: { url: "/forgotPassword", method: "GET" },
+  forgotPassword: { url: "/forgotPassword", method: "POST" },
   uploadFile: { url: "/file/upload", method: "POST" },
   resetPassword: { url: "/resetPassword", method: "PUT" },
   createPost: { url: "/create", method: "POST" }, //!

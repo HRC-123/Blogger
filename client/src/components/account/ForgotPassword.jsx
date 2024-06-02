@@ -137,10 +137,10 @@ const ForgotPassword = ({ isUserVerified }) => {
       setSuccess(true);
 
       // Generate OTP digits
-      const digit1 = randomNumberInRange(0, 9);
-      const digit2 = randomNumberInRange(0, 9);
-      const digit3 = randomNumberInRange(0, 9);
-      const digit4 = randomNumberInRange(0, 9);
+       digit1 = randomNumberInRange(0, 9);
+       digit2 = randomNumberInRange(0, 9);
+       digit3 = randomNumberInRange(0, 9);
+       digit4 = randomNumberInRange(0, 9);
 
       // Log OTP digits for debugging
       console.log(digit1, digit2, digit3, digit4);
@@ -159,8 +159,8 @@ const ForgotPassword = ({ isUserVerified }) => {
       console.log(updatedDetails);
 
       // Optionally send email
-      // const Email = await API.emailController(updatedDetails);
-      // console.log(email);
+      const Email = await API.forgotPassword(updatedDetails);
+      console.log(Email);
     }
   };
 

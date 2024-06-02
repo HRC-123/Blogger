@@ -123,7 +123,9 @@ const ResetPassword = ({ isVerified, email }) => {
       //  setDetails({...details,'password' : password})
         
           //Database save
-          //Backend and sending email and getting email contents is remaining
+        //Backend and sending email and getting email contents is remaining
+        
+        
         
         // console.log(details);
         
