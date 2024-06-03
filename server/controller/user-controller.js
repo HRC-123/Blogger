@@ -4,8 +4,12 @@ import dotenv from "dotenv";
 import User from "../model/user.js";
 import Token from "../model/token.js";
 import { response } from "express";
+import  nodemailer  from "nodemailer";
+
+
 
 dotenv.config();
+
 export const signupUser = async (request, response) => {
   try {
     // const salt = await bcrypt.genSalt();
@@ -82,8 +86,111 @@ export const loginUser = async (request, response) => {
   }
 };
 
+
+
 export const forgotPassword = async (request, response) => {
+
+const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Your OTP Code</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #333333;
+        }
+        .content {
+            font-size: 16px;
+            color: #555555;
+            line-height: 1.5;
+        }
+        .otp {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000000;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #888888;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Your One-Time Password (OTP)</h1>
+        </div>
+        <div class="content">
+            <p>Hello,</p>
+            <p>Your OTP for resetting your password is:</p>
+            <div class="otp">${request.body.otp[0]} - ${request.body.otp[1]} - ${request.body.otp[2]} - ${request.body.otp[3]}</div>
+            <p>Please use this OTP to complete your password reset. Do not share this OTP with anyone.</p>
+            <p>Thank you for using our service!</p>
+            <p>Best regards,<br>Blogger 🅱️</p>
+        </div>
+        <div class="footer">
+            <p>If you did not request this OTP, please contact our support team immediately.</p>
+        </div>
+    </div>
+</body>
+</html>
+`;
+  
+  
   console.log("Came to controller of forgot Password");
+  console.log(request.body.email);
+  console.log(request.body.otp);
+  // console.log(request.body.otp[0]);
+
+  //Here the game starts
+  
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.MAIL_USERNAME,
+      pass: process.env.MAIL_PASSWORD,
+    },
+  });
+
+  const info = await transporter.sendMail({
+    from: `"Blogger 🅱️" <${process.env.MAIL_USERNAME}>`, // sender address
+    to: request.body.email, // list of receivers
+    subject: "OTP for resetting password",// Subject line
+    // text: "Hello world?", // plain text body
+    html: htmlContent, // html body
+  });
+
+  console.log("Message sent: %s", info.messageId);
+
   return response.status(200).json({ msg: "Working Fine" });
 };
 
@@ -119,3 +226,5 @@ export const resetPassword = async (request, response) => {
       .json({ msg: "Error resetting the password of user" });
   }
 };
+
+

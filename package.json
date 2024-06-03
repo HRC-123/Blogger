@@ -2,6 +2,7 @@
   "dependencies": {
     "@mui/lab": "^5.0.0-alpha.170",
     "@mui/material": "^5.15.19",
+    "nodemailer": "^6.9.13",
     "react-router-dom": "^6.21.3"
   }
 }
