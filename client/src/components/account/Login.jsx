@@ -182,6 +182,7 @@ const Login = ({ isUserAuthenticated }) => {
               onChange={onValueChange}
               name="username"
               label="User Name"
+              autoFocus
             />
             <TextField
               variant="standard"
@@ -213,7 +214,8 @@ const Login = ({ isUserAuthenticated }) => {
               onChange={onInputChange}
               name="email"
               label="Email"
-              value={signup.email}
+                value={signup.email}
+                autoFocus
             />
             <TextField
               variant="standard"

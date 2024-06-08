@@ -250,7 +250,7 @@ const ForgotPassword = ({ isUserVerified }) => {
             )
           }
           required
-          focused
+          autoFocus
         />
         <Button
           variant="contained"
@@ -277,6 +277,7 @@ const ForgotPassword = ({ isUserVerified }) => {
                     inputRef={(el) => (inputRefs.current[index] = el)}
                     required
                     focused
+                    autoFocus = {index===0}
                   />
                   {index < otp.length - 1 && <span>-</span>}
                 </React.Fragment>
